@@ -9,6 +9,8 @@ public class CreateAccountWindow : AccountDataWindowBase
 
     [SerializeField] private Button _createAccountButton;
 
+    private WaitingInfoController _waitingInfoContoller;
+
     private string _mail;
 
     protected override void SubscriptionsElementsUi()
@@ -26,6 +28,8 @@ public class CreateAccountWindow : AccountDataWindowBase
 
     private void CreateAccount()
     {
+        _waitingInfoContoller = new WaitingInfoController();
+        _waitingInfoContoller.Show();
         RegisterPlayFabUserRequest request = new RegisterPlayFabUserRequest();
         request.Email = _mail;
         request.Username = _username;
@@ -36,12 +40,14 @@ public class CreateAccountWindow : AccountDataWindowBase
 
     private void CreateAccountComplete(RegisterPlayFabUserResult result)
     {
+        _waitingInfoContoller.Destroy();
         Debug.Log($"Success: {_username}");
         EnterInGameScene();
     }
 
     private void CreateAccountError(PlayFabError error)
     {
+        _waitingInfoContoller.Destroy();
         Debug.LogError($"Fail: {error.ErrorMessage}");
     }
 }

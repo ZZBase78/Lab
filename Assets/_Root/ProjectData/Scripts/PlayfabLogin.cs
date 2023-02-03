@@ -1,10 +1,7 @@
 using Photon.Pun;
-using Photon.Realtime;
 using PlayFab;
 using PlayFab.ClientModels;
 using System;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class PlayfabLogin : MonoBehaviourPunCallbacks
@@ -13,20 +10,24 @@ public class PlayfabLogin : MonoBehaviourPunCallbacks
 
     [SerializeField] private string _playFabTitle;
 
-    private string guidID;
+    private string _guidID;
+    private bool _keyPreset;
 
-    void Start()
+    private void Start()
+    {
+        _keyPreset = PlayerPrefs.HasKey(AUTH_GUID_KEY);
+        _guidID = PlayerPrefs.GetString(AUTH_GUID_KEY, Guid.NewGuid().ToString());
+    }
+
+    private void ConnectByCustomID()
     {
         if (string.IsNullOrEmpty(PlayFabSettings.staticSettings.TitleId))
             PlayFabSettings.staticSettings.TitleId = _playFabTitle;
 
-        bool keyPreset = PlayerPrefs.HasKey(AUTH_GUID_KEY);
-        guidID = PlayerPrefs.GetString(AUTH_GUID_KEY, Guid.NewGuid().ToString());
-
         var request = new LoginWithCustomIDRequest
         {
-            CustomId = guidID,
-            CreateAccount = !keyPreset
+            CustomId = _guidID,
+            CreateAccount = !_keyPreset
         };
 
         PlayFabClientAPI.LoginWithCustomID(request, OnLoginComplete, OnLoginError);
@@ -34,8 +35,10 @@ public class PlayfabLogin : MonoBehaviourPunCallbacks
 
     private void OnLoginComplete(LoginResult result)
     {
-        PlayerPrefs.SetString(AUTH_GUID_KEY, guidID);
-        Debug.Log("Complete login!!!");
+        PlayerPrefs.SetString(AUTH_GUID_KEY, _guidID);
+        Debug.Log($"Complete login!!! ID: {result.PlayFabId}");
+
+        _keyPreset = true;
     }
 
     private void OnLoginError(PlayFabError error)
@@ -43,4 +46,29 @@ public class PlayfabLogin : MonoBehaviourPunCallbacks
         string errorMessage = error.GenerateErrorReport();
         Debug.LogError(errorMessage);
     }
+
+    private void RemoveID()
+    {
+        PlayerPrefs.DeleteKey(AUTH_GUID_KEY);
+        _keyPreset = false;
+        _guidID = PlayerPrefs.GetString(AUTH_GUID_KEY, Guid.NewGuid().ToString());
+    }
+
+    void OnGUI()
+    {
+        string buttonIDText = "<new ID>";
+        if (_keyPreset)
+        {
+            buttonIDText = _guidID;
+        }
+        if (GUI.Button(new Rect(10, 10, 400, 50), "Connect by custom ID " + buttonIDText))
+        {
+            ConnectByCustomID();
+        }
+        if (GUI.Button(new Rect(10, 70, 400, 50), "Delete custom ID info"))
+        {
+            RemoveID();
+        }
+    }
+
 }

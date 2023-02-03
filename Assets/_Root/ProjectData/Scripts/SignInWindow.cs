@@ -7,6 +7,8 @@ public class SignInWindow : AccountDataWindowBase
 {
     [SerializeField] private Button _signInButton;
 
+    private WaitingInfoController _waitingInfoContoller;
+
     protected override void SubscriptionsElementsUi()
     {
         base.SubscriptionsElementsUi();
@@ -16,6 +18,9 @@ public class SignInWindow : AccountDataWindowBase
 
     private void SignIn()
     {
+        _waitingInfoContoller = new WaitingInfoController();
+        _waitingInfoContoller.Show();
+
         LoginWithPlayFabRequest request = new LoginWithPlayFabRequest();
         request.Username = _username;
         request.Password = _password;
@@ -25,12 +30,14 @@ public class SignInWindow : AccountDataWindowBase
 
     private void SignInComplete(LoginResult result)
     {
+        _waitingInfoContoller.Destroy();
         Debug.Log($"Success: {_username}");
         EnterInGameScene();
     }
 
     private void SignInError(PlayFabError error)
     {
+        _waitingInfoContoller.Destroy();
         Debug.LogError($"Fail: {error.ErrorMessage}");
     }
 }

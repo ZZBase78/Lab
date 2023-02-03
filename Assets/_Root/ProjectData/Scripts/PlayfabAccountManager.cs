@@ -15,7 +15,9 @@ public class PlayfabAccountManager : MonoBehaviour
 
     private void GetAccountInfoComplete(GetAccountInfoResult result)
     {
-        _titleLabel.text = $"Playfab id: {result.AccountInfo.PlayFabId}";
+        _titleLabel.text = $"Playfab ID: {result.AccountInfo.PlayFabId}";
+        _titleLabel.text += $"\nUser name: {result.AccountInfo.Username}";
+        _titleLabel.text += $"\nCreated: {result.AccountInfo.Created}";
     }
 
     private void GetAccountInfoError(PlayFabError error)

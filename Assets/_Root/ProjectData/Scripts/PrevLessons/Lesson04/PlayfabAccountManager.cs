@@ -6,11 +6,15 @@ using PlayFab.ClientModels;
 public class PlayfabAccountManager : MonoBehaviour
 {
     [SerializeField] TMP_Text _titleLabel;
+    [SerializeField] Transform _itemsRoot;
 
     private void Start()
     {
         GetAccountInfoRequest request = new GetAccountInfoRequest();
         PlayFabClientAPI.GetAccountInfo(request, GetAccountInfoComplete, GetAccountInfoError);
+
+        PlayfabCatalogReader playfabCatalogReader = new PlayfabCatalogReader(_itemsRoot);
+        playfabCatalogReader.ReadCatalog();
     }
 
     private void GetAccountInfoComplete(GetAccountInfoResult result)

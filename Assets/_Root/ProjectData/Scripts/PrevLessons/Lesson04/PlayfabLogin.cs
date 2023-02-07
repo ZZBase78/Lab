@@ -3,6 +3,7 @@ using PlayFab;
 using PlayFab.ClientModels;
 using System;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class PlayfabLogin : MonoBehaviourPunCallbacks
 {
@@ -37,8 +38,9 @@ public class PlayfabLogin : MonoBehaviourPunCallbacks
     {
         PlayerPrefs.SetString(AUTH_GUID_KEY, _guidID);
         Debug.Log($"Complete login!!! ID: {result.PlayFabId}");
-
         _keyPreset = true;
+
+        SceneManager.LoadScene(1);
     }
 
     private void OnLoginError(PlayFabError error)

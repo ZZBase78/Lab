@@ -2,12 +2,16 @@ using UnityEngine;
 using UnityEngine.UI;
 using PlayFab;
 using PlayFab.ClientModels;
+using System;
 
 public class CreateAccountWindow : AccountDataWindowBase
 {
     [SerializeField] private InputField _mailField;
 
     [SerializeField] private Button _createAccountButton;
+    [SerializeField] private Button _backButton;
+
+    public event Action ActionOnBackButtonPressed = delegate { };
 
     private WaitingInfoController _waitingInfoContoller;
 
@@ -19,6 +23,19 @@ public class CreateAccountWindow : AccountDataWindowBase
 
         _mailField.onValueChanged.AddListener(UpdateMail);
         _createAccountButton.onClick.AddListener(CreateAccount);
+        _backButton.onClick.AddListener(OnBackButtonPressed);
+    }
+
+    private void OnDestroy()
+    {
+        _mailField.onValueChanged.RemoveAllListeners();
+        _createAccountButton.onClick.RemoveAllListeners();
+        _backButton.onClick.RemoveAllListeners();
+    }
+
+    private void OnBackButtonPressed()
+    {
+        ActionOnBackButtonPressed.Invoke();
     }
 
     private void UpdateMail(string mail)
@@ -42,7 +59,7 @@ public class CreateAccountWindow : AccountDataWindowBase
     {
         _waitingInfoContoller.Destroy();
         Debug.Log($"Success: {_username}");
-        EnterInGameScene();
+        EnterLobbyScene();
     }
 
     private void CreateAccountError(PlayFabError error)

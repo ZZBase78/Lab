@@ -2,10 +2,14 @@ using UnityEngine;
 using UnityEngine.UI;
 using PlayFab;
 using PlayFab.ClientModels;
+using System;
 
 public class SignInWindow : AccountDataWindowBase
 {
     [SerializeField] private Button _signInButton;
+    [SerializeField] private Button _backButton;
+
+    public event Action ActionOnBackButtonPressed = delegate { };
 
     private WaitingInfoController _waitingInfoContoller;
 
@@ -14,6 +18,18 @@ public class SignInWindow : AccountDataWindowBase
         base.SubscriptionsElementsUi();
 
         _signInButton.onClick.AddListener(SignIn);
+        _backButton.onClick.AddListener(OnBackButtonPressed);
+    }
+
+    private void OnDestroy()
+    {
+        _signInButton.onClick.RemoveAllListeners();
+        _backButton.onClick.RemoveAllListeners();
+    }
+
+    private void OnBackButtonPressed()
+    {
+        ActionOnBackButtonPressed.Invoke();
     }
 
     private void SignIn()
@@ -32,7 +48,7 @@ public class SignInWindow : AccountDataWindowBase
     {
         _waitingInfoContoller.Destroy();
         Debug.Log($"Success: {_username}");
-        EnterInGameScene();
+        EnterLobbyScene();
     }
 
     private void SignInError(PlayFabError error)

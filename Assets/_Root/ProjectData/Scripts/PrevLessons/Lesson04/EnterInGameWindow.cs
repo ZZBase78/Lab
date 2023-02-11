@@ -9,10 +9,28 @@ public class EnterInGameWindow : MonoBehaviour
     [SerializeField] private Canvas _createAccountCanvas;
     [SerializeField] private Canvas _signInCanvas;
 
+    private SignInWindow _signInWindow;
+    private CreateAccountWindow _createAccountWindow;
+
     private void Start()
     {
         _signInButton.onClick.AddListener(OpenSignInWindow);
         _createAccountButton.onClick.AddListener(OpenCreateAccountWindow);
+        
+        _signInWindow = FindObjectOfType<SignInWindow>();
+        _signInWindow.ActionOnBackButtonPressed += ResetUI;
+        
+        _createAccountWindow = FindObjectOfType<CreateAccountWindow>();
+        _createAccountWindow.ActionOnBackButtonPressed += ResetUI;
+    }
+
+    private void OnDestroy()
+    {
+        _signInButton.onClick.RemoveAllListeners();
+        _createAccountButton.onClick.RemoveAllListeners();
+
+        _signInWindow.ActionOnBackButtonPressed -= ResetUI;
+        _createAccountWindow.ActionOnBackButtonPressed -= ResetUI;
     }
 
     private void OpenSignInWindow()
@@ -25,6 +43,13 @@ public class EnterInGameWindow : MonoBehaviour
     {
         _createAccountCanvas.enabled = true;
         _enterInGameCanvas.enabled = false;
+    }
+
+    private void ResetUI()
+    {
+        _signInCanvas.enabled = false;
+        _createAccountCanvas.enabled = false;
+        _enterInGameCanvas.enabled = true;
     }
 
 }

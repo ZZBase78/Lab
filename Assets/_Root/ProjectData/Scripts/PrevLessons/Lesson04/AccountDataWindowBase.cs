@@ -31,7 +31,7 @@ public class AccountDataWindowBase : MonoBehaviour
         _password = password;
     }
 
-    protected void EnterInGameScene()
+    protected void EnterLobbyScene()
     {
         SceneManager.LoadScene(1);
     }

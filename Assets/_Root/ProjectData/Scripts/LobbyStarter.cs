@@ -145,6 +145,8 @@ internal sealed class LobbyStarter : MonoBehaviour, IConnectionCallbacks, IMatch
     public void OnJoinedRoom()
     {
         Debug.Log("OnJoinedRoom");
+        PhotonNetwork.AutomaticallySyncScene = true;
+        //PhotonNetwork.LoadLevel(2);
         SceneManager.LoadScene(2);
     }
 

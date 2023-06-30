@@ -2,6 +2,7 @@ using TMPro;
 using UnityEngine;
 using PlayFab;
 using PlayFab.ClientModels;
+using System.Collections.Generic;
 
 public class PlayfabAccountManager : MonoBehaviour
 {
@@ -11,6 +12,7 @@ public class PlayfabAccountManager : MonoBehaviour
     {
         GetAccountInfoRequest request = new GetAccountInfoRequest();
         PlayFabClientAPI.GetAccountInfo(request, GetAccountInfoComplete, GetAccountInfoError);
+        PlayFabClientAPI.GetCatalogItems(new GetCatalogItemsRequest(), OnGetCatalogSuccess, OnError);
     }
 
     private void GetAccountInfoComplete(GetAccountInfoResult result)
@@ -24,5 +26,25 @@ public class PlayfabAccountManager : MonoBehaviour
     {
         string errorMessage = error.GenerateErrorReport();
         Debug.LogError(errorMessage);
+    }
+
+    private void OnError(PlayFabError error)
+    {
+        var errorMessage = error.GenerateErrorReport();
+        Debug.Log(errorMessage);
+    }
+
+    private void OnGetCatalogSuccess(GetCatalogItemsResult result)
+    {
+        Debug.LogError("OnGetCatalogSuccess");
+        ShowItems(result.Catalog);
+    }
+
+    private void ShowItems(List<CatalogItem> catalog)
+    {
+        foreach (var item in catalog)
+        {
+            Debug.Log($"{item.ItemId}");
+        }
     }
 }

@@ -110,7 +110,7 @@ Canvas:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 854759575331625633}
-  m_Enabled: 1
+  m_Enabled: 0
   serializedVersion: 3
   m_RenderMode: 0
   m_Camera: {fileID: 0}
@@ -957,7 +957,7 @@ GameObject:
   - component: {fileID: 7263193345457430395}
   - component: {fileID: 7263193345457430392}
   - component: {fileID: 7263193345457430393}
-  - component: {fileID: 2730818618346634065}
+  - component: {fileID: 1063955224377226636}
   m_Layer: 5
   m_Name: CreateAccount
   m_TagString: Untagged
@@ -1026,7 +1026,7 @@ MonoBehaviour:
   m_BlockingMask:
     serializedVersion: 2
     m_Bits: 4294967295
---- !u!114 &2730818618346634065
+--- !u!114 &1063955224377226636
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -1035,13 +1035,14 @@ MonoBehaviour:
   m_GameObject: {fileID: 7263193345457430394}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 78f378c13f717c840b00aeb13f6eec92, type: 3}
+  m_Script: {fileID: 11500000, guid: c1abf12297441714eb3a103f26040266, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   _usernameField: {fileID: 4612925932181667771}
   _passwordField: {fileID: 4612925931005702823}
   _mailField: {fileID: 4612925931230103268}
   _createAccountButton: {fileID: 5517128455772332440}
+  _backButton: {fileID: 5517128455850008063}
 --- !u!1 &7263193345476662007
 GameObject:
   m_ObjectHideFlags: 0
@@ -1888,7 +1889,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 7263193346492972015}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 972fb8a702b089f49a09895c660d23b2, type: 3}
+  m_Script: {fileID: 11500000, guid: 22fc524333f760243be7762e90032f5b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   _signInButton: {fileID: 5223149581937360768}
@@ -2245,7 +2246,7 @@ GameObject:
   - component: {fileID: 7263193346873066076}
   - component: {fileID: 7263193346873066049}
   - component: {fileID: 7263193346873066078}
-  - component: {fileID: 472643962967292243}
+  - component: {fileID: 8209455479747470728}
   m_Layer: 5
   m_Name: SignIn
   m_TagString: Untagged
@@ -2314,7 +2315,7 @@ MonoBehaviour:
   m_BlockingMask:
     serializedVersion: 2
     m_Bits: 4294967295
---- !u!114 &472643962967292243
+--- !u!114 &8209455479747470728
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -2323,12 +2324,13 @@ MonoBehaviour:
   m_GameObject: {fileID: 7263193346873066048}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f921345da2383e7489cda7bfa5a0b43f, type: 3}
+  m_Script: {fileID: 11500000, guid: d443202ac8d6113439d3017012284d35, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   _usernameField: {fileID: 8090938157099334032}
   _passwordField: {fileID: 4612925931844614158}
   _signInButton: {fileID: 5517128453948474251}
+  _backButton: {fileID: 5517128455499790358}
 --- !u!1 &7263193347083943583
 GameObject:
   m_ObjectHideFlags: 0
@@ -3395,6 +3397,17 @@ MonoBehaviour:
   m_FlexibleWidth: -1
   m_FlexibleHeight: -1
   m_LayoutPriority: 1
+--- !u!114 &5517128455499790358 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 2908424605321521129, guid: 0ec38cb435b2606448e084272d4ec621, type: 3}
+  m_PrefabInstance: {fileID: 7263193345180196863}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4459881631337104679}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4e29b1a8efbd4b44bb3f3716e73f07ff, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!224 &7638490741505526997 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 1066602172793115434, guid: 0ec38cb435b2606448e084272d4ec621, type: 3}
@@ -3945,6 +3958,17 @@ MonoBehaviour:
   m_FlexibleWidth: -1
   m_FlexibleHeight: -1
   m_LayoutPriority: 1
+--- !u!114 &5517128455850008063 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 2908424605321521129, guid: 0ec38cb435b2606448e084272d4ec621, type: 3}
+  m_PrefabInstance: {fileID: 7263193345526233622}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4459881631154659534}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4e29b1a8efbd4b44bb3f3716e73f07ff, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!224 &7638490741830592828 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 1066602172793115434, guid: 0ec38cb435b2606448e084272d4ec621, type: 3}

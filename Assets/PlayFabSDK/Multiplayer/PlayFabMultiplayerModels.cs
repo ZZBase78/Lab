@@ -107,7 +107,6 @@ namespace PlayFab.MultiplayerModels
         Fsv2,
         Dasv4,
         Dav4,
-        Dadsv5,
         Eav4,
         Easv4,
         Ev4,
@@ -156,10 +155,6 @@ namespace PlayFab.MultiplayerModels
         Standard_D4a_v4,
         Standard_D8a_v4,
         Standard_D16a_v4,
-        Standard_D2ads_v5,
-        Standard_D4ads_v5,
-        Standard_D8ads_v5,
-        Standard_D16ads_v5,
         Standard_E2a_v4,
         Standard_E4a_v4,
         Standard_E8a_v4,
@@ -645,19 +640,14 @@ namespace PlayFab.MultiplayerModels
         /// </summary>
         public ServerResourceConstraintParams ServerResourceConstraints;
         /// <summary>
-        /// DEPRECATED - this is always true. Assets are downloaded and uncompressed in memory, without the compressedversion being
-        /// written first to disc.
+        /// When true, assets will be downloaded and uncompressed in memory, without the compressedversion being written first to
+        /// disc.
         /// </summary>
-        [Obsolete("Use '' instead", true)]
         public bool? UseStreamingForAssetDownloads;
         /// <summary>
         /// The VM size to create the build on.
         /// </summary>
         public AzureVmSize? VmSize;
-        /// <summary>
-        /// The configuration for the VmStartupScript for the build
-        /// </summary>
-        public VmStartupScriptParams VmStartupScriptConfiguration;
     }
 
     [Serializable]
@@ -745,10 +735,6 @@ namespace PlayFab.MultiplayerModels
         /// The VM size the build was created on.
         /// </summary>
         public AzureVmSize? VmSize;
-        /// <summary>
-        /// The configuration for the VmStartupScript feature for the build
-        /// </summary>
-        public VmStartupScriptConfiguration VmStartupScriptConfiguration;
     }
 
     /// <summary>
@@ -821,19 +807,14 @@ namespace PlayFab.MultiplayerModels
         /// </summary>
         public string StartMultiplayerServerCommand;
         /// <summary>
-        /// DEPRECATED - this is always true. Assets are downloaded and uncompressed in memory, without the compressedversion being
-        /// written first to disc.
+        /// When true, assets will be downloaded and uncompressed in memory, without the compressedversion being written first to
+        /// disc.
         /// </summary>
-        [Obsolete("Use '' instead", true)]
         public bool? UseStreamingForAssetDownloads;
         /// <summary>
         /// The VM size to create the build on.
         /// </summary>
         public AzureVmSize? VmSize;
-        /// <summary>
-        /// The configuration for the VmStartupScript for the build
-        /// </summary>
-        public VmStartupScriptParams VmStartupScriptConfiguration;
         /// <summary>
         /// The crash dump configuration for the build.
         /// </summary>
@@ -926,10 +907,6 @@ namespace PlayFab.MultiplayerModels
         /// The VM size the build was created on.
         /// </summary>
         public AzureVmSize? VmSize;
-        /// <summary>
-        /// The configuration for the VmStartupScript feature for the build
-        /// </summary>
-        public VmStartupScriptConfiguration VmStartupScriptConfiguration;
     }
 
     /// <summary>
@@ -1005,19 +982,14 @@ namespace PlayFab.MultiplayerModels
         /// </summary>
         public string StartMultiplayerServerCommand;
         /// <summary>
-        /// DEPRECATED - this is always true. Assets are downloaded and uncompressed in memory, without the compressedversion being
-        /// written first to disc.
+        /// When true, assets will be downloaded and uncompressed in memory, without the compressedversion being written first to
+        /// disc.
         /// </summary>
-        [Obsolete("Use '' instead", true)]
         public bool? UseStreamingForAssetDownloads;
         /// <summary>
         /// The VM size to create the build on.
         /// </summary>
         public AzureVmSize? VmSize;
-        /// <summary>
-        /// The configuration for the VmStartupScript for the build
-        /// </summary>
-        public VmStartupScriptParams VmStartupScriptConfiguration;
     }
 
     [Serializable]
@@ -1108,10 +1080,6 @@ namespace PlayFab.MultiplayerModels
         /// The VM size the build was created on.
         /// </summary>
         public AzureVmSize? VmSize;
-        /// <summary>
-        /// The configuration for the VmStartupScript feature for the build
-        /// </summary>
-        public VmStartupScriptConfiguration VmStartupScriptConfiguration;
     }
 
     /// <summary>
@@ -1761,6 +1729,16 @@ namespace PlayFab.MultiplayerModels
         /// </summary>
         public Dictionary<string,string> CustomTags;
         /// <summary>
+        /// Controls whether this query should link to friends made on the Facebook network. Defaults to false
+        /// </summary>
+        [Obsolete("Use 'ExternalPlatformFriends' instead", true)]
+        public bool? ExcludeFacebookFriends;
+        /// <summary>
+        /// Controls whether this query should link to friends made on the Steam network. Defaults to false
+        /// </summary>
+        [Obsolete("Use 'ExternalPlatformFriends' instead", true)]
+        public bool? ExcludeSteamFriends;
+        /// <summary>
         /// Indicates which other platforms' friends this query should link to.
         /// </summary>
         public ExternalFriendSources? ExternalPlatformFriends;
@@ -2097,10 +2075,6 @@ namespace PlayFab.MultiplayerModels
         /// The VM size the build was created on.
         /// </summary>
         public AzureVmSize? VmSize;
-        /// <summary>
-        /// The configuration for the VmStartupScript feature for the build
-        /// </summary>
-        public VmStartupScriptConfiguration VmStartupScriptConfiguration;
     }
 
     /// <summary>
@@ -2213,8 +2187,7 @@ namespace PlayFab.MultiplayerModels
     public class GetMatchmakingTicketResult : PlayFabResultCommon
     {
         /// <summary>
-        /// The reason why the current ticket was canceled. This field is only set if the ticket is in canceled state. Please retry
-        /// if CancellationReason is RetryRequired.
+        /// The reason why the current ticket was canceled. This field is only set if the ticket is in canceled state.
         /// </summary>
         public string CancellationReasonString;
         /// <summary>
@@ -2350,7 +2323,7 @@ namespace PlayFab.MultiplayerModels
         /// </summary>
         public string FQDN;
         /// <summary>
-        /// The public IPv4 address of the virtual machine that is hosting this multiplayer server.
+        /// The IPv4 address of the virtual machine that is hosting this multiplayer server.
         /// </summary>
         public string IPV4Address;
         /// <summary>
@@ -2361,10 +2334,6 @@ namespace PlayFab.MultiplayerModels
         /// The ports the multiplayer server uses.
         /// </summary>
         public List<Port> Ports;
-        /// <summary>
-        /// The list of public Ipv4 addresses associated with the server.
-        /// </summary>
-        public List<PublicIpAddress> PublicIPV4Addresses;
         /// <summary>
         /// The region the multiplayer server is located in.
         /// </summary>
@@ -3845,23 +3814,6 @@ namespace PlayFab.MultiplayerModels
     }
 
     [Serializable]
-    public class PublicIpAddress : PlayFabBaseModel
-    {
-        /// <summary>
-        /// FQDN of the public IP
-        /// </summary>
-        public string FQDN;
-        /// <summary>
-        /// Server IP Address
-        /// </summary>
-        public string IpAddress;
-        /// <summary>
-        /// Routing Type of the public IP.
-        /// </summary>
-        public string RoutingType;
-    }
-
-    [Serializable]
     public class QosServer : PlayFabBaseModel
     {
         /// <summary>
@@ -4057,7 +4009,7 @@ namespace PlayFab.MultiplayerModels
         /// </summary>
         public string FQDN;
         /// <summary>
-        /// The public IPv4 address of the virtual machine that is hosting this multiplayer server.
+        /// The IPv4 address of the virtual machine that is hosting this multiplayer server.
         /// </summary>
         public string IPV4Address;
         /// <summary>
@@ -4068,10 +4020,6 @@ namespace PlayFab.MultiplayerModels
         /// The ports the multiplayer server uses.
         /// </summary>
         public List<Port> Ports;
-        /// <summary>
-        /// The list of public Ipv4 addresses associated with the server.
-        /// </summary>
-        public List<PublicIpAddress> PublicIPV4Addresses;
         /// <summary>
         /// The region the multiplayer server is located in.
         /// </summary>
@@ -4122,12 +4070,6 @@ namespace PlayFab.MultiplayerModels
         /// The username for accessing the container registry.
         /// </summary>
         public string Username;
-    }
-
-    public enum RoutingType
-    {
-        Microsoft,
-        Internet
     }
 
     [Serializable]
@@ -4867,58 +4809,6 @@ namespace PlayFab.MultiplayerModels
         /// The virtual machine ID.
         /// </summary>
         public string VmId;
-    }
-
-    [Serializable]
-    public class VmStartupScriptConfiguration : PlayFabBaseModel
-    {
-        /// <summary>
-        /// Optional port requests (name/protocol) that will be used by the VmStartupScript. Max of 5 requests.
-        /// </summary>
-        public List<VmStartupScriptPortRequest> PortRequests;
-        /// <summary>
-        /// Asset which contains the VmStartupScript script and any other required files.
-        /// </summary>
-        public AssetReference VmStartupScriptAssetReference;
-    }
-
-    [Serializable]
-    public class VmStartupScriptParams : PlayFabBaseModel
-    {
-        /// <summary>
-        /// Optional port requests (name/protocol) that will be used by the VmStartupScript. Max of 5 requests.
-        /// </summary>
-        public List<VmStartupScriptPortRequestParams> PortRequests;
-        /// <summary>
-        /// Asset which contains the VmStartupScript script and any other required files.
-        /// </summary>
-        public AssetReferenceParams VmStartupScriptAssetReference;
-    }
-
-    [Serializable]
-    public class VmStartupScriptPortRequest : PlayFabBaseModel
-    {
-        /// <summary>
-        /// The name for the port.
-        /// </summary>
-        public string Name;
-        /// <summary>
-        /// The protocol for the port.
-        /// </summary>
-        public ProtocolType Protocol;
-    }
-
-    [Serializable]
-    public class VmStartupScriptPortRequestParams : PlayFabBaseModel
-    {
-        /// <summary>
-        /// The name for the port.
-        /// </summary>
-        public string Name;
-        /// <summary>
-        /// The protocol for the port.
-        /// </summary>
-        public ProtocolType Protocol;
     }
 
     [Serializable]

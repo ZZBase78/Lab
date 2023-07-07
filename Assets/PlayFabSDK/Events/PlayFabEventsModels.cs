@@ -71,7 +71,7 @@ namespace PlayFab.EventsModels
         /// </summary>
         public Dictionary<string,string> CustomTags;
         /// <summary>
-        /// The collection of events to write. Up to 200 events can be written per request.
+        /// Collection of events to write to PlayStream.
         /// </summary>
         public List<EventContents> Events;
     }
